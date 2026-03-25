@@ -7,7 +7,7 @@ public class NDArray {
     private float[] data;   // données a plat
     private int[] shape;    // dim
     private int ndim;       // nb dim
-    private int size;       // nb total elem
+    private int size;       // nb total 
 
     public NDArray(float[] data, int[] shape) {
         this.data = data;
@@ -74,6 +74,19 @@ public class NDArray {
         data[i * cols + j] = value;
     }
 
+    //Fonctions 
+    public static NDArray zeros(int... shape) {
+        // calcul taille totale
+        int size = 1;
+        for (int s : shape) {
+            if (s <= 0) throw new IllegalArgumentException("Shape dimensions must be positive");
+            size *= s;
+        }
+        // crée tab rempli de 0
+        float[] data = new float[size]; // init a 0 automatiquement 
+        return new NDArray(data, shape);
+    }
+
     //AFFICHAGE
     @Override
     public String toString() {
@@ -97,4 +110,16 @@ public class NDArray {
         }
         return "Unsupported dimension";
     }
+
+    //debug/verification : mvn compile exec:java -Dexec.mainClass="com.example.NDArray"
+    public static void main(String[] args) {
+    NDArray z1 = NDArray.zeros(5);
+    NDArray z2 = NDArray.zeros(2, 3);
+
+    System.out.println("1D zeros:");
+    System.out.println(z1);
+
+    System.out.println("2D zeros:");
+    System.out.println(z2);
+}
 }
