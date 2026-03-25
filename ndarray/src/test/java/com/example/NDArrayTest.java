@@ -79,4 +79,31 @@ public class NDArrayTest {
             arr.get(0, 0);
         });
     }
+
+    @Test
+    void testZeros1D() {
+        NDArray z = NDArray.zeros(4);
+        assertEquals(1, z.getNdim());
+        assertEquals(4, z.getSize());
+        for (int i = 0; i < 4; i++) {
+            assertEquals(0f, z.get(i));
+        }
+    }
+
+    @Test
+    void testZeros2D() {
+        NDArray z = NDArray.zeros(2, 3);
+        assertEquals(2, z.getNdim());
+        assertEquals(6, z.getSize());
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 3; j++) {
+                assertEquals(0f, z.get(i, j));
+            }
+        }
+    }
+
+    @Test
+    void testZerosInvalidShape() {
+        assertThrows(IllegalArgumentException.class, () -> NDArray.zeros(2, -3));
+    }
 }
