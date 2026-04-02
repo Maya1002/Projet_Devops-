@@ -118,6 +118,18 @@ public class NDArray {
         return new NDArray(data, new int[]{rows, cols});
     }
 
+    public static NDArray arange(float start, float stop, float step) {
+        if (step == 0) throw new IllegalArgumentException("Step cannot be 0");
+        int size = (int) Math.ceil((stop - start) / step);
+        if (size <= 0) throw new IllegalArgumentException("Invalid range");
+        
+        float[] data = new float[size];
+        for (int i = 0; i < size; i++) {
+            data[i] = start + i * step;
+        }
+        return new NDArray(data, new int[]{size});
+    }
+
     //AFFICHAGE
     @Override
     public String toString() {
