@@ -164,4 +164,34 @@ public class NDArrayTest {
         }
     }
 
+    //reshape()
+    @Test
+    void testReshapeValid() {
+        NDArray a = NDArray.array(new float[]{1, 2, 3, 4});
+        a.reshape(2, 2);
+
+        assertArrayEquals(new int[]{2, 2}, a.getShape());
+        assertEquals(2, a.getNdim());
+        assertEquals(4, a.getSize());
+    }
+
+    @Test
+    void testReshapeInvalid() {
+        NDArray a = NDArray.array(new float[]{1, 2, 3, 4});
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            a.reshape(3, 2);
+        });
+    }
+
+    //dimensions négatives
+    @Test
+    void testReshapeInvalidShape() {
+        NDArray a = NDArray.array(new float[]{1, 2, 3, 4});
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            a.reshape(2, -2);
+        });
+    }
+
 }
