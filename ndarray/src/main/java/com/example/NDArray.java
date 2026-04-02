@@ -130,6 +130,25 @@ public class NDArray {
         return new NDArray(data, new int[]{size});
     }
 
+    //reshape()
+    public void reshape(int... newShape) {
+
+        int newSize = 1;
+        for (int s : newShape) {
+            if (s <= 0) {
+                throw new IllegalArgumentException("Shape must be positive");
+            }
+            newSize *= s;
+        }
+
+        if (newSize != this.size) {
+            throw new IllegalArgumentException("Total size must remain the same");
+        }
+
+        this.shape = newShape;
+        this.ndim = newShape.length;
+    }
+
     //AFFICHAGE
     @Override
     public String toString() {
