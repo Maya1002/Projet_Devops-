@@ -99,4 +99,52 @@ public class NDArrayTest {
         }
     }
 
+    //array()
+    @Test
+    void testArray1D() {
+        float[] input = {1.0f, 2.0f, 3.0f};
+
+        NDArray array = NDArray.array(input);
+
+        assertEquals(1, array.getNdim());
+        assertArrayEquals(new int[]{3}, array.getShape());
+        assertEquals(3, array.getSize());
+
+        assertEquals(1.0f, array.get(0));
+        assertEquals(2.0f, array.get(1));
+        assertEquals(3.0f, array.get(2));
+    }
+
+    @Test
+    void testArray2D() {
+        float[][] input = {
+            {1.0f, 2.0f},
+            {3.0f, 4.0f}
+        };
+
+        NDArray array = NDArray.array(input);
+
+        assertEquals(2, array.getNdim());
+        assertArrayEquals(new int[]{2, 2}, array.getShape());
+        assertEquals(4, array.getSize());
+
+        assertEquals(1.0f, array.get(0, 0));
+        assertEquals(2.0f, array.get(0, 1));
+        assertEquals(3.0f, array.get(1, 0));
+        assertEquals(4.0f, array.get(1, 1));
+    }
+
+    @Test
+    void testArrayInvalidRows() {
+        float[][] input = {
+            {1.0f, 2.0f},
+            {3.0f}
+        };
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            NDArray.array(input);
+        });
+    }
+
+
 }

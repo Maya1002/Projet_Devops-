@@ -75,6 +75,7 @@ public class NDArray {
     }
 
     //Fonctions 
+    //zeros()
     public static NDArray zeros(int... shape) {
         // calcul taille totale
         int size = 1;
@@ -85,6 +86,36 @@ public class NDArray {
         // crée tab rempli de 0
         float[] data = new float[size]; // init a 0 automatiquement 
         return new NDArray(data, shape);
+    }
+
+    //array()
+    //1D
+    public static NDArray array(float[] input) {
+        return new NDArray(input, new int[]{input.length});
+    }
+    //2D
+    public static NDArray array(float[][] input) {
+        int rows = input.length;
+        int cols = input[0].length;
+
+        // vérifier que toutes les lignes ont la même taille
+        for (int i = 0; i < rows; i++) {
+            if (input[i].length != cols) {
+                throw new IllegalArgumentException("Inconsistent row sizes");
+            }
+        }
+
+        // flatten
+        float[] data = new float[rows * cols];
+        int index = 0;
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                data[index++] = input[i][j];
+            }
+        }
+
+        return new NDArray(data, new int[]{rows, cols});
     }
 
     //AFFICHAGE
