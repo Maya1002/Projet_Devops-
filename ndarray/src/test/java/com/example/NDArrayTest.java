@@ -194,4 +194,33 @@ public class NDArrayTest {
         });
     }
 
+    // arange + reshape -> arange 2D
+    @Test
+    void testArangeReshape2D() {
+        NDArray a = NDArray.arange(0, 6, 1);
+        a.reshape(2, 3);
+
+        assertEquals(2, a.getNdim());
+        assertArrayEquals(new int[]{2, 3}, a.getShape());
+        
+        assertEquals(0f, a.get(0, 0));
+        assertEquals(1f, a.get(0, 1));
+        assertEquals(2f, a.get(0, 2));
+        assertEquals(3f, a.get(1, 0));
+        assertEquals(4f, a.get(1, 1));
+        assertEquals(5f, a.get(1, 2));
+    }
+
+    @Test
+    void testArangeReshape2DStep2() {
+        NDArray a = NDArray.arange(0, 12, 2);
+        a.reshape(2, 3);
+
+        assertEquals(0f, a.get(0, 0));
+        assertEquals(2f, a.get(0, 1));
+        assertEquals(4f, a.get(0, 2));
+        assertEquals(6f, a.get(1, 0));
+        assertEquals(8f, a.get(1, 1));
+        assertEquals(10f, a.get(1, 2));
+    }
 }
