@@ -223,4 +223,49 @@ public class NDArrayTest {
         assertEquals(8f, a.get(1, 1));
         assertEquals(10f, a.get(1, 2));
     }
+
+
+    //AddInPlace()
+    @Test
+    void testAddInPlace1D() {
+        NDArray a = NDArray.array(new float[]{1, 2, 3});
+        NDArray b = NDArray.array(new float[]{4, 5, 6});
+
+        a.addInPlace(b);
+
+        assertEquals(5f, a.get(0));
+        assertEquals(7f, a.get(1));
+        assertEquals(9f, a.get(2));
+    }
+
+    @Test
+    void testAddInPlace2D() {
+        NDArray a = NDArray.array(new float[][]{
+            {1, 2},
+            {3, 4}
+        });
+
+        NDArray b = NDArray.array(new float[][]{
+            {10, 20},
+            {30, 40}
+        });
+
+        a.addInPlace(b);
+
+        assertEquals(11f, a.get(0, 0));
+        assertEquals(22f, a.get(0, 1));
+        assertEquals(33f, a.get(1, 0));
+        assertEquals(44f, a.get(1, 1));
+    }
+
+    @Test
+    void testAddInPlaceShapeMismatch() {
+        NDArray a = NDArray.array(new float[]{1, 2, 3});
+        NDArray b = NDArray.array(new float[]{1, 2});
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            a.addInPlace(b);
+        });
+    }
+
 }

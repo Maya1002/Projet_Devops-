@@ -118,6 +118,7 @@ public class NDArray {
         return new NDArray(data, new int[]{rows, cols});
     }
 
+    //arange()
     public static NDArray arange(float start, float stop, float step) {
         if (step == 0) throw new IllegalArgumentException("Step cannot be 0");
         int size = (int) Math.ceil((stop - start) / step);
@@ -147,6 +148,19 @@ public class NDArray {
 
         this.shape = newShape;
         this.ndim = newShape.length;
+    }
+
+    //AddInPlace()
+    public void addInPlace(NDArray other) {
+        // vérifier compatibilité
+        if (!Arrays.equals(this.shape, other.shape)) {
+            throw new IllegalArgumentException("Shapes must be identical");
+        }
+
+        // addition élément par élément
+        for (int i = 0; i < this.size; i++) {
+            this.data[i] += other.data[i];
+        }
     }
 
     //AFFICHAGE
