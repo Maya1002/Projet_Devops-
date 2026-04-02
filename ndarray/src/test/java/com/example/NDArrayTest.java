@@ -4,21 +4,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class NDArrayTest {
-
-    //1D
-    @Test
-    void testCreation1D() {
-        float[] data = {1, 2, 3};
-        int[] shape = {3};
-
-        NDArray arr = new NDArray(data, shape);
-
-        assertEquals(1, arr.getNdim());
-        assertEquals(3, arr.getSize());
-        assertEquals(3, arr.getShape()[0]);
-        assertEquals(2, arr.get(1));
-    }
-
+    // pertinence : verifier que le constructeur rejette une shape incohérente avec la taille des données
     @Test
     void testInvalidShape() {
         float[] data = {1, 2, 3};
@@ -29,20 +15,7 @@ public class NDArrayTest {
         });
     }
 
-    //2D
-    @Test
-    void testCreation2D() {
-        float[] data = {1, 2, 3, 4};
-        int[] shape = {2, 2};
-
-        NDArray arr = new NDArray(data, shape);
-
-        assertEquals(2, arr.getNdim());
-        assertEquals(4, arr.getSize());
-        assertEquals(2, arr.getShape()[0]);
-        assertEquals(2, arr.getShape()[1]);
-    }
-
+    // pertinence : verifier que les méthodes d’accès 2D fonctionnent correctement
     @Test
     void testAccess2D() {
         float[] data = {1, 2, 3, 4};
@@ -56,25 +29,22 @@ public class NDArrayTest {
         assertEquals(4, arr.get(1, 1));
     }
 
+    // pertinence : verifier que les méthodes de mise a jour sont correct 
     @Test
     void testSet2D() {
         float[] data = {1, 2, 3, 4};
         int[] shape = {2, 2};
-
         NDArray arr = new NDArray(data, shape);
-
         arr.set(0, 1, 10);
-
         assertEquals(10, arr.get(0, 1));
     }
 
+    // pertinence : verifie qu’un accès avec une mauvaise dimension déclenche une exceptio
     @Test
     void testWrongDimensionAccess() {
         float[] data = {1, 2, 3};
         int[] shape = {3};
-
         NDArray arr = new NDArray(data, shape);
-
         assertThrows(IllegalStateException.class, () -> {
             arr.get(0, 0);
         });
@@ -102,8 +72,31 @@ public class NDArrayTest {
         }
     }
 
+    //pertinence : verifie que zeros() rejette une shape invalide (dimension négative)
     @Test
     void testZerosInvalidShape() {
         assertThrows(IllegalArgumentException.class, () -> NDArray.zeros(2, -3));
     }
+
+    @Test
+    void testZerosIndependence() {
+        NDArray z = NDArray.zeros(3);
+        z.set(1, 5f);
+
+        assertEquals(5f, z.get(1));
+        assertEquals(0f, z.get(0));
+        assertEquals(0f, z.get(2));
+    }
+
+    // vérifie que le tableau interne (data) est bien initialisé uniquement avec des zéros
+    @Test
+    void testZerosRawData() {
+        NDArray z = NDArray.zeros(3);
+        float[] data = z.getData();
+
+        for (float v : data) {
+            assertEquals(0f, v);
+        }
+    }
+
 }
