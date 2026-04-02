@@ -146,5 +146,22 @@ public class NDArrayTest {
         });
     }
 
+    //arange () 
+    @Test
+    void testArange() {
+        NDArray a = NDArray.arange(0, 5, 1);
+        assertEquals(5, a.getSize());
+        assertEquals(0f, a.get(0));
+        assertEquals(4f, a.get(4));
+    }
+
+    @Test
+    void testArangeStep2() {
+        NDArray a = NDArray.arange(0, 10, 2);
+        float[] expected = {0f, 2f, 4f, 6f, 8f};
+        for (int i = 0; i < expected.length; i++) {
+            assertEquals(expected[i], a.get(i));
+        }
+    }
 
 }
