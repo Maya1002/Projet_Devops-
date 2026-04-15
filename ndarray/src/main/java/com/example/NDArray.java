@@ -42,9 +42,8 @@ public class NDArray {
         }
     }
 
-    // =========================
+    
     // GETTERS
-    // =========================
 
     public int getNdim() {
         return ndim;
@@ -62,9 +61,7 @@ public class NDArray {
         return data;
     }
 
-    // =========================
     // ACCÈS AUX DONNÉES (1D)
-    // =========================
 
     public float get(int index) {
         if (ndim != 1) {
@@ -80,9 +77,7 @@ public class NDArray {
         data[index] = value;
     }
 
-    // =========================
     // ACCÈS AUX DONNÉES (2D)
-    // =========================
 
     public float get(int i, int j) {
         if (ndim != 2) {
@@ -100,9 +95,7 @@ public class NDArray {
         data[i * cols + j] = value;
     }
 
-    // =========================
     // CRÉATION
-    // =========================
 
     /**
      * Crée un NDArray rempli de zéros
@@ -177,9 +170,7 @@ public class NDArray {
         return new NDArray(data, new int[]{size});
     }
 
-    // =========================
     // RESHAPE
-    // =========================
 
     /**
      * Change la forme du tableau sans modifier les données
@@ -202,9 +193,7 @@ public class NDArray {
         this.ndim = newShape.length;
     }
 
-    // =========================
     // OPERATIONS
-    // =========================
 
     /**
      * Addition élément par élément (retourne un nouveau NDArray)
@@ -236,9 +225,7 @@ public class NDArray {
         }
     }
 
-    // =========================
     // AFFICHAGE
-    // =========================
 
     @Override
     public String toString() {
