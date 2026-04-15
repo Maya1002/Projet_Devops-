@@ -163,6 +163,19 @@ public class NDArray {
         return new NDArray(resultData, this.shape);
     }
 
+    //AddInPlace()
+    public void addInPlace(NDArray other) {
+        // vérifier compatibilité
+        if (!Arrays.equals(this.shape, other.shape)) {
+            throw new IllegalArgumentException("Shapes must be identical");
+        }
+
+        // addition élément par élément
+        for (int i = 0; i < this.size; i++) {
+            this.data[i] += other.data[i];
+        }
+    }
+
     //AFFICHAGE
     @Override
     public String toString() {
