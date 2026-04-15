@@ -240,6 +240,21 @@ public class NDArrayTest {
 
     @Test
     void testAddInPlace2D() {
+    @Test
+    void testAdd1D() {
+        NDArray a = NDArray.arange(0, 5, 1);
+        NDArray b = NDArray.arange(5, 10, 1);
+
+        NDArray c = a.add(b);
+
+        float[] expected = {5f, 7f, 9f, 11f, 13f};
+        for (int i = 0; i < expected.length; i++) {
+            assertEquals(expected[i], c.get(i));
+        }
+    }
+
+    @Test
+    void testAdd2D() {
         NDArray a = NDArray.array(new float[][]{
             {1, 2},
             {3, 4}
@@ -267,5 +282,13 @@ public class NDArrayTest {
             a.addInPlace(b);
         });
     }
+        NDArray c = a.add(b);
+
+        assertEquals(11f, c.get(0, 0));
+        assertEquals(22f, c.get(0, 1));
+        assertEquals(33f, c.get(1, 0));
+        assertEquals(44f, c.get(1, 1));
+    }
+
 
 }
