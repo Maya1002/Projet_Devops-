@@ -15,27 +15,43 @@ Chaque NDArray possède les attributs suivants :
 
 ### Création de NDArray
 
-- `NDArray.array(float[])` : crée un tableau 1D à partir d'un tableau Java classique : NDArray a = NDArray.array(new float[]{1, 2, 3});
+- `NDArray.array(float[])` : crée un tableau 1D à partir d'un tableau Java classique:
+```java
+NDArray a = NDArray.array(new float[]{1, 2, 3});
+```
 
-- `NDArray.array(float[][])` : crée un tableau 2D : 
+- `NDArray.array(float[][])` : crée un tableau 2D: 
+```java
 NDArray m = NDArray.array(new float[][]{{1, 2}, {3, 4}});
+```
 
-- `NDArray.zeros(int...)` : crée un tableau rempli de zéros avec la forme donnée : 
+- `NDArray.zeros(int...)` : crée un tableau rempli de zéros avec la forme donnée: 
+```java
 NDArray z = NDArray.zeros(2, 3); // matrice 2x3 de zéros
+```
 
-- `NDArray.arange(start, stop, step)` : crée un tableau 1D avec une séquence de nombres (comme `range` en Python) : NDArray a = NDArray.arange(0, 10, 2); // [0, 2, 4, 6, 8]
+- `NDArray.arange(start, stop, step)` : crée un tableau 1D avec une séquence de nombres (comme `range` en Python) :
+```java
+NDArray a = NDArray.arange(0, 10, 2); // [0, 2, 4, 6, 8]
+```
 
 ### Opérations
 - `add(NDArray other)` : addition élément par élément, retourne un nouveau NDArray sans modifier les originaux.
+```java
 NDArray c = a.add(b);
+```
 
 - `addInPlace(NDArray other)` : addition en place (équivalent du `+=` de NumPy), modifie directement le tableau.
+```java
 a.addInPlace(b); // a est modifié
+```
 
 ### Reshape
 - `reshape(int... newShape)` : change la forme du tableau. La taille totale doit rester la même.
+```java
 NDArray a = NDArray.arange(0, 6, 1);
 a.reshape(2, 3); // passe de [6] à [2, 3]
+```
 
 ### Affichage
 
