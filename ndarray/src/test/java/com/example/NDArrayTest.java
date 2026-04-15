@@ -257,5 +257,61 @@ public class NDArrayTest {
         assertEquals(44f, c.get(1, 1));
     }
 
+    //AddInPlace()
+    @Test
+    void testAddInPlace1D() {
+        NDArray a = NDArray.array(new float[]{1, 2, 3});
+        NDArray b = NDArray.array(new float[]{4, 5, 6});
+
+        a.addInPlace(b);
+
+        assertEquals(5f, a.get(0));
+        assertEquals(7f, a.get(1));
+        assertEquals(9f, a.get(2));
+    }
+
+    @Test
+    void testAddInPlaceWithArange() {
+        NDArray a = NDArray.arange(0, 5, 1);
+        NDArray b = NDArray.arange(5, 10, 1);
+
+        a.addInPlace(b);
+
+        float[] expected = {5f, 7f, 9f, 11f, 13f};
+        for (int i = 0; i < expected.length; i++) {
+            assertEquals(expected[i], a.get(i));
+        }
+    }
+
+    @Test
+    void testAddInPlace2DMatrix() {
+        NDArray a = NDArray.array(new float[][]{
+            {1, 2},
+            {3, 4}
+        });
+
+        NDArray b = NDArray.array(new float[][]{
+            {10, 20},
+            {30, 40}
+        });
+
+        a.addInPlace(b);
+
+        assertEquals(11f, a.get(0, 0));
+        assertEquals(22f, a.get(0, 1));
+        assertEquals(33f, a.get(1, 0));
+        assertEquals(44f, a.get(1, 1));
+    }
+
+    @Test
+    void testAddInPlaceShapeMismatch() {
+        NDArray a = NDArray.array(new float[]{1, 2, 3});
+        NDArray b = NDArray.array(new float[]{1, 2});
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            a.addInPlace(b);
+        });
+    }
+
 
 }
