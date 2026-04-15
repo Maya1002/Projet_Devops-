@@ -1,6 +1,6 @@
 # NDArray - Bibliothèque de calcul scientifique en Java
 
-Projet réalisé dans le cadre du cours DevOps M1 INFO — UFR IM2AG, Université Grenoble Alpes (2026).
+Projet réalisé dans le cadre du cours DevOps M1 INFO - UFR IM2AG, Université Grenoble Alpes (2026).
 
 Le but de ce projet est de développer une bibliothèque Java inspirée de NumPy (Python) pour manipuler des tableaux multidimensionnels, tout en mettant en pratique les principes d'intégration continue et de travail collaboratif.
 
