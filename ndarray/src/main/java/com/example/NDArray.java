@@ -2,30 +2,50 @@ package com.example;
 
 import java.util.Arrays;
 
+/**
+ * NDArray - structure de données simple inspirée de NumPy.
+ * Supporte les tableaux 1D et 2D de type float.
+ */
 public class NDArray {
 
-    private float[] data;   // données a plat
-    private int[] shape;    // dim
-    private int ndim;       // nb dim
-    private int size;       // nb total 
+    // Données stockées en mémoire sous forme aplatie (row-major)
+    private float[] data;
 
+    // Forme du tableau (ex: [2,3])
+    private int[] shape;
+
+    // Nombre de dimensions (1D, 2D)
+    private int ndim;
+
+    // Nombre total d'éléments
+    private int size;
+
+    /**
+     * Constructeur principal
+     * @param data valeurs du tableau (aplaties)
+     * @param shape dimensions du tableau
+     */
     public NDArray(float[] data, int[] shape) {
         this.data = data;
         this.shape = shape;
         this.ndim = shape.length;
 
-        // calcul du size
+        // Calcul du nombre total d'éléments
         this.size = 1;
         for (int s : shape) {
             this.size *= s;
         }
 
+        // Vérification cohérence shape / data
         if (this.size != data.length) {
             throw new IllegalArgumentException("Data size does not match shape");
         }
     }
 
-    //GETTER
+    // =========================
+    // GETTERS
+    // =========================
+
     public int getNdim() {
         return ndim;
     }
@@ -42,7 +62,10 @@ public class NDArray {
         return data;
     }
 
-    //1D
+    // =========================
+    // ACCÈS AUX DONNÉES (1D)
+    // =========================
+
     public float get(int index) {
         if (ndim != 1) {
             throw new IllegalStateException("Not a 1D array");
@@ -57,7 +80,10 @@ public class NDArray {
         data[index] = value;
     }
 
-    //2D
+    // =========================
+    // ACCÈS AUX DONNÉES (2D)
+    // =========================
+
     public float get(int i, int j) {
         if (ndim != 2) {
             throw new IllegalStateException("Not a 2D array");
@@ -74,38 +100,49 @@ public class NDArray {
         data[i * cols + j] = value;
     }
 
-    //Fonctions 
-    //zeros()
+    // =========================
+    // CRÉATION
+    // =========================
+
+    /**
+     * Crée un NDArray rempli de zéros
+     */
     public static NDArray zeros(int... shape) {
-        // calcul taille totale
         int size = 1;
+
         for (int s : shape) {
-            if (s <= 0) throw new IllegalArgumentException("Shape dimensions must be positive");
+            if (s <= 0) {
+                throw new IllegalArgumentException("Shape dimensions must be positive");
+            }
             size *= s;
         }
-        // crée tab rempli de 0
-        float[] data = new float[size]; // init a 0 automatiquement 
+
+        float[] data = new float[size]; // initialisé automatiquement à 0
         return new NDArray(data, shape);
     }
 
-    //array()
-    //1D
+    /**
+     * Crée un NDArray 1D à partir d'un tableau
+     */
     public static NDArray array(float[] input) {
         return new NDArray(input, new int[]{input.length});
     }
-    //2D
+
+    /**
+     * Crée un NDArray 2D à partir d'un tableau 2D
+     */
     public static NDArray array(float[][] input) {
         int rows = input.length;
         int cols = input[0].length;
 
-        // vérifier que toutes les lignes ont la même taille
+        // Vérifie que toutes les lignes ont la même taille
         for (int i = 0; i < rows; i++) {
             if (input[i].length != cols) {
                 throw new IllegalArgumentException("Inconsistent row sizes");
             }
         }
 
-        // flatten
+        // Conversion en tableau 1D
         float[] data = new float[rows * cols];
         int index = 0;
 
@@ -118,22 +155,38 @@ public class NDArray {
         return new NDArray(data, new int[]{rows, cols});
     }
 
+    /**
+     * Génère une suite de valeurs [start, stop[
+     */
     public static NDArray arange(float start, float stop, float step) {
-        if (step == 0) throw new IllegalArgumentException("Step cannot be 0");
+        if (step == 0) {
+            throw new IllegalArgumentException("Step cannot be 0");
+        }
+
         int size = (int) ((stop - start) / step);
-        if (size <= 0) throw new IllegalArgumentException("Invalid range");
-        
+        if (size <= 0) {
+            throw new IllegalArgumentException("Invalid range");
+        }
+
         float[] data = new float[size];
+
         for (int i = 0; i < size; i++) {
             data[i] = start + i * step;
         }
+
         return new NDArray(data, new int[]{size});
     }
 
-    //reshape()
-    public void reshape(int... newShape) {
+    // =========================
+    // RESHAPE
+    // =========================
 
+    /**
+     * Change la forme du tableau sans modifier les données
+     */
+    public void reshape(int... newShape) {
         int newSize = 1;
+
         for (int s : newShape) {
             if (s <= 0) {
                 throw new IllegalArgumentException("Shape must be positive");
@@ -149,43 +202,57 @@ public class NDArray {
         this.ndim = newShape.length;
     }
 
-    // addition élément par élément, retourne un nouveau NDArray
+    // =========================
+    // OPERATIONS
+    // =========================
+
+    /**
+     * Addition élément par élément (retourne un nouveau NDArray)
+     */
     public NDArray add(NDArray other) {
         if (!Arrays.equals(this.shape, other.shape)) {
             throw new IllegalArgumentException("Shapes must match for addition");
         }
 
-        float[] resultData = new float[this.size];
+        float[] result = new float[this.size];
+
         for (int i = 0; i < this.size; i++) {
-            resultData[i] = this.data[i] + other.data[i];
+            result[i] = this.data[i] + other.data[i];
         }
 
-        return new NDArray(resultData, this.shape);
+        return new NDArray(result, this.shape);
     }
 
-    //AddInPlace()
+    /**
+     * Addition élément par élément (modifie l'objet courant)
+     */
     public void addInPlace(NDArray other) {
-        // vérifier compatibilité
         if (!Arrays.equals(this.shape, other.shape)) {
             throw new IllegalArgumentException("Shapes must be identical");
         }
 
-        // addition élément par élément
         for (int i = 0; i < this.size; i++) {
             this.data[i] += other.data[i];
         }
     }
 
-    //AFFICHAGE
+    // =========================
+    // AFFICHAGE
+    // =========================
+
     @Override
     public String toString() {
         if (ndim == 1) {
             return Arrays.toString(data);
-        } else if (ndim == 2) {
+        }
+
+        if (ndim == 2) {
             int rows = shape[0];
             int cols = shape[1];
+
             StringBuilder sb = new StringBuilder();
             sb.append("[\n");
+
             for (int i = 0; i < rows; i++) {
                 sb.append("  [");
                 for (int j = 0; j < cols; j++) {
@@ -194,21 +261,11 @@ public class NDArray {
                 }
                 sb.append("]\n");
             }
+
             sb.append("]");
             return sb.toString();
         }
+
         return "Unsupported dimension";
     }
-
-    //debug/verification : mvn compile exec:java -Dexec.mainClass="com.example.NDArray"
-    public static void main(String[] args) {
-    NDArray z1 = NDArray.zeros(5);
-    NDArray z2 = NDArray.zeros(2, 3);
-
-    System.out.println("1D zeros:");
-    System.out.println(z1);
-
-    System.out.println("2D zeros:");
-    System.out.println(z2);
-}
 }
