@@ -45,6 +45,8 @@ On a implémenté `toString()` pour avoir un affichage lisible. Par exemple pour
   [1.0, 2.0, 3.0]
   [4.0, 5.0, 6.0]
 ]
+```
+
 
 ## Outils utilisés
 
