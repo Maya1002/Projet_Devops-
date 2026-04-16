@@ -117,6 +117,11 @@ mvn test
 
 mvn clean install
 
+### 5. Lancer avec Docker
+
+docker build -t ndarray .
+docker run ndarray
+
 ## Outils utilisés
 
 - Java 17 pour le développement
@@ -125,6 +130,7 @@ mvn clean install
 - JaCoCo pour mesurer la couverture de code
 - Git + GitHub pour le versionnement et la collaboration
 - GitHub Actions pour l'intégration continue
+- Docker pour la conteneurisation de l'application
 
 ## Notre workflow Git
 
@@ -150,13 +156,24 @@ Le pipeline se déclenche automatiquement :
 - à chaque push sur `main` ou sur une branche `feature/*`
 - à chaque Pull Request vers `main`
 
-Il fait les étapes suivantes :
+Il contient deux jobs :
+
+### Job 1 : Build et tests
 1. Récupère le code (checkout)
 2. Installe Java 17
 3. Lance `mvn clean verify` qui compile le code, exécute tous les tests et génère le rapport de couverture JaCoCo
 
-Ça nous permet de vérifier que rien n'est cassé à chaque modification.
+### Job 2 : Docker (livraison continue)
+Ce job se lance uniquement sur `main`, après le succès du job de build :
+1. Build l'image Docker avec un **multi-stage build** (compilation Maven puis image légère JRE)
+2. Exécute le conteneur pour vérifier que la démo fonctionne
+3. Publie l'image sur **GitHub Packages** (`ghcr.io/maya1002/ndarray:latest`)
 
+L'image Docker est ainsi construite et déployée automatiquement à chaque merge dans main. N'importe qui peut la récupérer avec :
+```bash
+docker pull ghcr.io/maya1002/ndarray:latest
+docker run ghcr.io/maya1002/ndarray:latest
+```
 ## Structure du projet
 ```txt
 Projet_Devops-/
@@ -176,6 +193,8 @@ Projet_Devops-/
 │                   └── NDArrayTest.java
 ├── AUTHORS
 └── README.md
+└── Dockerfile
+└── .dockerignore
 ```
 
 ## Feedback
@@ -190,6 +209,7 @@ Projet_Devops-/
 
 **GitHub Actions** : la mise en place était plus simple que ce qu'on pensait. Le fait que les tests tournent automatiquement à chaque push c'est rassurant, on sait tout de suite si on a cassé quelque chose.
 
+**Docker** : la conteneurisation avec le multi-stage build nous a permis de comprendre comment séparer l'étape de build de l'étape d'exécution. L'intégration avec GitHub Packages pour publier l'image automatiquement est un vrai plus pour la livraison continue.
 
 ### À propos de la revue de code
 
