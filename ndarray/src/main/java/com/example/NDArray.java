@@ -228,7 +228,7 @@ public class NDArray {
 
 
     // Fonctions universelles (élément par élément)
-    
+
     /**
      * Sinus appliqué à chaque élément
      * Retourne un nouveau NDArray sans modifier l'objet courant
@@ -281,6 +281,51 @@ public class NDArray {
 
         return new NDArray(result, shape.clone());
     }
+
+
+    // Statistiques
+
+    
+    /**
+     * Somme de tous les éléments du tableau
+     */
+    public float sum() {
+        float s = 0;
+        for (float v : data) {
+            s += v;
+        }
+        return s;
+    }
+
+    /**
+     * Moyenne des éléments du tableau
+     */
+    public float mean() {
+        return sum() / size;
+    }
+
+    /**
+     * Valeur minimale du tableau
+     */
+    public float min() {
+        float m = data[0];
+        for (float v : data) {
+            m = Math.min(m, v);
+        }
+        return m;
+    }
+
+    /**
+     * Valeur maximale du tableau
+     */
+    public float max() {
+        float m = data[0];
+        for (float v : data) {
+            m = Math.max(m, v);
+        }
+        return m;
+    }
+
 
 
     // AFFICHAGE
