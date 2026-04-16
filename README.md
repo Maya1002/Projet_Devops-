@@ -1,3 +1,5 @@
+![Java CI](https://github.com/Maya1002/Projet_Devops-/actions/workflows/ci.yml/badge.svg)
+
 # NDArray - Bibliothèque de calcul scientifique en Java
 
 Projet réalisé dans le cadre du cours DevOps M1 INFO - UFR IM2AG, Université Grenoble Alpes (2026).
