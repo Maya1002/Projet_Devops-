@@ -105,19 +105,13 @@ float mx = a.max();
 
 mvn clean compile
 
----
-
 ### 2. Lancer la démonstration (App)
 
 mvn exec:java -Dexec.mainClass="com.example.App"
 
----
-
 ### 3. Lancer les tests unitaires
 
 mvn test
-
----
 
 ### 4. Générer le build complet du projet
 
