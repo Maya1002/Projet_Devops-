@@ -71,7 +71,6 @@ NDArray r = a.exp();
 
 - `sqrt()` : applique la racine carrée à chaque élément
 NDArray r = a.sqrt();
----
 
 ### Fonctions de statistiques:
 
