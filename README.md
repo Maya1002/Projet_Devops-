@@ -174,6 +174,14 @@ L'image Docker est ainsi construite et déployée automatiquement à chaque merg
 docker pull ghcr.io/maya1002/ndarray:latest
 docker run ghcr.io/maya1002/ndarray:latest
 ```
+
+### Job 3 : Publication Maven (livraison continue)
+Ce job se lance uniquement sur `main`, après le succès du job de build :
+1. Compile le projet
+2. Publie la bibliothèque sur **GitHub Packages Maven** (`com.example:ndarray:1.0-SNAPSHOT`)
+
+Ainsi, à chaque merge dans `main`, la bibliothèque est automatiquement publiée et disponible pour être importée dans d'autres projets Java.
+
 ## Structure du projet
 ```txt
 Projet_Devops-/
