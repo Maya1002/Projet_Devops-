@@ -73,6 +73,22 @@ NDArray r = a.exp();
 NDArray r = a.sqrt();
 ---
 
+### Fonctions de statistiques:
+
+Les fonctions de statistiques permettent de calculer des valeurs globales sur un NDArray.
+
+- `sum()` : calcule la somme de tous les éléments  
+float s = a.sum();
+
+- `mean()` : calcule la moyenne des éléments  
+float m = a.mean();
+
+- `min()` : retourne la valeur minimale du tableau  
+float mn = a.min();
+
+- `max()` : retourne la valeur maximale du tableau  
+float mx = a.max();
+
 ### Affichage
 
 On a implémenté `toString()` pour avoir un affichage lisible. Par exemple pour un tableau 2D :
