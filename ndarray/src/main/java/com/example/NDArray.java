@@ -225,6 +225,64 @@ public class NDArray {
         }
     }
 
+
+
+    // Fonctions universelles (élément par élément)
+    
+    /**
+     * Sinus appliqué à chaque élément
+     * Retourne un nouveau NDArray sans modifier l'objet courant
+     */
+    public NDArray sin() {
+        float[] result = new float[size];
+        for (int i = 0; i < size; i++) {
+            result[i] = (float) Math.sin(data[i]);
+        }
+        return new NDArray(result, shape.clone());
+    }
+
+    /**
+     * Cosinus appliqué à chaque élément
+     * Retourne un nouveau NDArray sans modifier l'objet courant
+     */
+    public NDArray cos() {
+        float[] result = new float[size];
+        for (int i = 0; i < size; i++) {
+            result[i] = (float) Math.cos(data[i]);
+        }
+        return new NDArray(result, shape.clone());
+    }
+
+    /**
+     * Exponentielle appliquée à chaque élément
+     * Retourne un nouveau NDArray sans modifier l'objet courant
+     */
+    public NDArray exp() {
+        float[] result = new float[size];
+        for (int i = 0; i < size; i++) {
+            result[i] = (float) Math.exp(data[i]);
+        }
+        return new NDArray(result, shape.clone());
+    }
+
+    /**
+     * Racine carrée appliquée à chaque élément
+     * Retourne un nouveau NDArray sans modifier l'objet courant
+     */
+    public NDArray sqrt() {
+        float[] result = new float[size];
+
+        for (int i = 0; i < size; i++) {
+            if (data[i] < 0) {
+                throw new IllegalArgumentException("Cannot compute sqrt of negative value");
+            }
+            result[i] = (float) Math.sqrt(data[i]);
+        }
+
+        return new NDArray(result, shape.clone());
+    }
+
+
     // AFFICHAGE
 
     @Override

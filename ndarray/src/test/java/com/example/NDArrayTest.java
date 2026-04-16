@@ -327,4 +327,47 @@ public class NDArrayTest {
             a.addInPlace(b);
         });
     }
+
+    // Fonctions universelles: élément par élément
+
+    @Test
+    void testSin() {
+        // Vérifie le calcul du sinus sur un tableau 1D
+        NDArray a = NDArray.array(new float[]{0f, (float)Math.PI/2});
+
+        NDArray r = a.sin();
+
+        assertEquals(0f, r.get(0), 1e-5);
+        assertEquals(1f, r.get(1), 1e-5);
+    }
+
+    @Test
+    void testCos() {
+        // Vérifie le calcul du cosinus sur un tableau
+        NDArray a = NDArray.array(new float[]{0f});
+
+        NDArray r = a.cos();
+
+        assertEquals(1f, r.get(0), 1e-5);
+    }
+
+    @Test
+    void testExp() {
+        // Vérifie le calcul de l'exponentielle
+        NDArray a = NDArray.array(new float[]{0f});
+
+        NDArray r = a.exp();
+
+        assertEquals(1f, r.get(0), 1e-5);
+    }
+
+    @Test
+    void testSqrt() {
+        // Vérifie le calcul de la racine carrée
+        NDArray a = NDArray.array(new float[]{4f});
+
+        NDArray r = a.sqrt();
+
+        assertEquals(2f, r.get(0), 1e-5);
+    }
 }
