@@ -54,6 +54,24 @@ a.addInPlace(b); // a est modifié
 NDArray a = NDArray.arange(0, 6, 1);
 a.reshape(2, 3); // passe de [6] à [2, 3]
 ```
+## Fonctionnalités Optionnelles
+
+### Fonctions universelles:
+
+Les fonctions universelles s’appliquent élément par élément et retournent un nouveau NDArray sans modifier l’objet original.
+
+- `sin()` : applique la fonction sinus à chaque élément
+NDArray r = a.sin();
+
+- `cos()` : applique la fonction cosinus à chaque élément
+NDArray r = a.cos();
+
+- `exp()` : applique la fonction exponentielle à chaque élément
+NDArray r = a.exp();
+
+- `sqrt()` : applique la racine carrée à chaque élément
+NDArray r = a.sqrt();
+---
 
 ### Affichage
 
@@ -106,18 +124,25 @@ Il fait les étapes suivantes :
 Ça nous permet de vérifier que rien n'est cassé à chaque modification.
 
 ## Structure du projet
+```txt
 Projet_Devops-/
-├── .github/workflows/
-│   └── ci.yml              # pipeline CI
+├── .github/
+│   └── workflows/
+│       └── ci.yml
 ├── ndarray/
-│   ├── pom.xml             # config Maven
+│   ├── pom.xml
 │   └── src/
-│       ├── main/java/com/example/
-│       │   └── NDArray.java
-│       └── test/java/com/example/
-│           └── NDArrayTest.java
+│       ├── main/
+│       │   └── java/
+│       │       └── com/example/
+│       │           └── NDArray.java
+│       └── test/
+│           └── java/
+│               └── com/example/
+│                   └── NDArrayTest.java
 ├── AUTHORS
 └── README.md
+```
 
 ## Feedback
 
