@@ -47,3 +47,28 @@ jobs:
 
       - name: Push image sur GitHub Packages
         run: docker push ghcr.io/maya1002/ndarray:latest
+  
+  
+  maven-publish:
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/main'
+
+    permissions:
+      packages: write
+      contents: read
+
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+
+      - name: Installer Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Publier sur GitHub Packages
+        run: mvn -f ndarray/pom.xml deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
