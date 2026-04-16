@@ -44,6 +44,12 @@ public class App {
             {40, 50, 60}
         });
 
+        System.out.println("Array c :");
+        System.out.println(c);
+
+        System.out.println("Array d :");
+        System.out.println(d);
+
         NDArray result = c.add(d);
         System.out.println("\nAddition c + d :");
         System.out.println(result);
@@ -60,6 +66,9 @@ public class App {
         // FONCTIONS UNIVERSELLES
 
         NDArray u = NDArray.array(new float[]{0, 1, 2, 3});
+        
+        System.out.println("Array u :");
+        System.out.println(u);
 
         System.out.println("\n=== UFUNCS ===");
 
@@ -80,6 +89,9 @@ public class App {
         System.out.println("\n=== STATISTIQUES ===");
 
         NDArray s = NDArray.array(new float[]{1, 2, 3, 4, 5});
+        
+        System.out.println("Array s :");
+        System.out.println(s);
 
         System.out.println("sum : " + s.sum());
         System.out.println("mean : " + s.mean());
