@@ -99,6 +99,30 @@ float mn = a.min();
 - `max()` : retourne la valeur maximale du tableau  
 float mx = a.max();
 
+## Utilisation
+
+### 1. Compiler le projet
+
+mvn clean compile
+
+---
+
+### 2. Lancer la démonstration (App)
+
+mvn exec:java -Dexec.mainClass="com.example.App"
+
+---
+
+### 3. Lancer les tests unitaires
+
+mvn test
+
+---
+
+### 4. Générer le build complet du projet
+
+mvn clean install
+
 ## Outils utilisés
 
 - Java 17 pour le développement
