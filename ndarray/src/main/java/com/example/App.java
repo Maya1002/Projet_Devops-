@@ -32,7 +32,7 @@ public class App {
         System.out.println("\nArray a après reshape (2x3) :");
         System.out.println(a);
 
-        // Addition (retourne un nouveau tableau)
+        // Addition
 
         NDArray c = NDArray.array(new float[][]{
             {1, 2, 3},
@@ -48,7 +48,7 @@ public class App {
         System.out.println("\nAddition c + d :");
         System.out.println(result);
 
-        // AddInPlace (modifie directement le tableau)
+        // AddInPlace
 
         System.out.println("\nc avant addInPlace :");
         System.out.println(c);
@@ -56,6 +56,35 @@ public class App {
         c.addInPlace(d);
         System.out.println("\nc après addInPlace(d) :");
         System.out.println(c);
+
+        // FONCTIONS UNIVERSELLES
+
+        NDArray u = NDArray.array(new float[]{0, 1, 2, 3});
+
+        System.out.println("\n=== UFUNCS ===");
+
+        System.out.println("sin :");
+        System.out.println(u.sin());
+
+        System.out.println("cos :");
+        System.out.println(u.cos());
+
+        System.out.println("exp :");
+        System.out.println(u.exp());
+
+        System.out.println("sqrt :");
+        System.out.println(u.sqrt());
+
+        // STATISTIQUES
+
+        System.out.println("\n=== STATISTIQUES ===");
+
+        NDArray s = NDArray.array(new float[]{1, 2, 3, 4, 5});
+
+        System.out.println("sum : " + s.sum());
+        System.out.println("mean : " + s.mean());
+        System.out.println("min : " + s.min());
+        System.out.println("max : " + s.max());
 
         System.out.println("\n=== FIN DEMO ===");
     }

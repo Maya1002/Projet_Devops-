@@ -54,6 +54,17 @@ a.addInPlace(b); // a est modifié
 NDArray a = NDArray.arange(0, 6, 1);
 a.reshape(2, 3); // passe de [6] à [2, 3]
 ```
+
+### Affichage
+
+On a implémenté `toString()` pour avoir un affichage lisible. Par exemple pour un tableau 2D :
+```
+[
+  [1.0, 2.0, 3.0]
+  [4.0, 5.0, 6.0]
+]
+```
+
 ## Fonctionnalités Optionnelles
 
 ### Fonctions universelles:
@@ -87,16 +98,6 @@ float mn = a.min();
 
 - `max()` : retourne la valeur maximale du tableau  
 float mx = a.max();
-
-### Affichage
-
-On a implémenté `toString()` pour avoir un affichage lisible. Par exemple pour un tableau 2D :
-```
-[
-  [1.0, 2.0, 3.0]
-  [4.0, 5.0, 6.0]
-]
-```
 
 ## Outils utilisés
 
