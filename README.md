@@ -141,18 +141,25 @@ Déclenché à chaque push et Pull Request.
 
 ## Structure du projet
 
+```txt
 Projet_Devops-/
-├── .github/workflows/
-│   └── ci.yml
+├── .github/
+│   └── workflows/
+│       └── ci.yml
 ├── ndarray/
 │   ├── pom.xml
 │   └── src/
-│       ├── main/java/com/example/
-│       │   └── NDArray.java
-│       └── test/java/com/example/
-│           └── NDArrayTest.java
+│       ├── main/
+│       │   └── java/
+│       │       └── com/example/
+│       │           └── NDArray.java
+│       └── test/
+│           └── java/
+│               └── com/example/
+│                   └── NDArrayTest.java
 ├── AUTHORS
 └── README.md
+```
 
 ---
 
