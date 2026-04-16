@@ -54,6 +54,17 @@ a.addInPlace(b); // a est modifié
 NDArray a = NDArray.arange(0, 6, 1);
 a.reshape(2, 3); // passe de [6] à [2, 3]
 ```
+
+### Affichage
+
+On a implémenté `toString()` pour avoir un affichage lisible. Par exemple pour un tableau 2D :
+```
+[
+  [1.0, 2.0, 3.0]
+  [4.0, 5.0, 6.0]
+]
+```
+
 ## Fonctionnalités Optionnelles
 
 ### Fonctions universelles:
@@ -71,17 +82,40 @@ NDArray r = a.exp();
 
 - `sqrt()` : applique la racine carrée à chaque élément
 NDArray r = a.sqrt();
----
 
-### Affichage
+### Fonctions de statistiques:
 
-On a implémenté `toString()` pour avoir un affichage lisible. Par exemple pour un tableau 2D :
-```
-[
-  [1.0, 2.0, 3.0]
-  [4.0, 5.0, 6.0]
-]
-```
+Les fonctions de statistiques permettent de calculer des valeurs globales sur un NDArray.
+
+- `sum()` : calcule la somme de tous les éléments  
+float s = a.sum();
+
+- `mean()` : calcule la moyenne des éléments  
+float m = a.mean();
+
+- `min()` : retourne la valeur minimale du tableau  
+float mn = a.min();
+
+- `max()` : retourne la valeur maximale du tableau  
+float mx = a.max();
+
+## Utilisation
+
+### 1. Compiler le projet
+
+mvn clean compile
+
+### 2. Lancer la démonstration (App)
+
+mvn exec:java -Dexec.mainClass="com.example.App"
+
+### 3. Lancer les tests unitaires
+
+mvn test
+
+### 4. Générer le build complet du projet
+
+mvn clean install
 
 ## Outils utilisés
 

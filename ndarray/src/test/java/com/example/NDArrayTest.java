@@ -370,4 +370,92 @@ public class NDArrayTest {
 
         assertEquals(2f, r.get(0), 1e-5);
     }
+
+    // Fonctions de statistiques
+
+    @Test
+    void testSum() {
+        // Vérifie le calcul de la somme des éléments
+        NDArray a = NDArray.array(new float[]{1f, 2f, 3f});
+        assertEquals(6f, a.sum());
+    }
+
+    @Test
+    void testMean() {
+        // Vérifie le calcul de la moyenne
+        NDArray a = NDArray.array(new float[]{2f, 4f});
+        assertEquals(3f, a.mean());
+    }
+
+    @Test
+    void testMinMax() {
+        // Vérifie le calcul du minimum et du maximum
+        NDArray a = NDArray.array(new float[]{-1f, 5f, 3f});
+
+        assertEquals(-1f, a.min());
+        assertEquals(5f, a.max());
+    }
+
+    // Tests avancés: UFuncs + Statistics
+
+    @Test
+    void testMeanAfterExp() {
+        // Vérifie que mean() après une transformation exp() fonctionne correctement
+        NDArray a = NDArray.array(new float[]{0f, 1f, 2f});
+
+        NDArray b = a.exp();
+
+        float mean = b.mean();
+
+        assertTrue(mean > 1f); // exp augmente les valeurs donc moyenne > 1
+    }
+
+    @Test
+    void testSinRangeWithStats() {
+        // Vérifie cohérence entre sin() et stats (valeurs bornées)
+        NDArray a = NDArray.array(new float[]{0f, (float)Math.PI/2, (float)Math.PI});
+
+        NDArray r = a.sin();
+
+        assertTrue(r.min() >= -1f);
+        assertTrue(r.max() <= 1f);
+    }
+
+    @Test
+    void testSqrtMean() {
+        // Vérifie que sqrt() conserve une moyenne positive
+        NDArray a = NDArray.array(new float[]{1f, 4f, 9f});
+
+        NDArray r = a.sqrt();
+
+        assertEquals(2f, r.mean(), 1e-5);
+    }
+
+    @Test
+    void testCosSizeAndStats() {
+        // Vérifie que cos() n'altère pas la taille et permet stats cohérentes
+        NDArray a = NDArray.array(new float[]{0f, 1f, 2f, 3f});
+
+        NDArray r = a.cos();
+
+        assertEquals(a.getSize(), r.getSize());
+
+        float max = r.max();
+        float min = r.min();
+
+        assertTrue(max <= 1f && min >= -1f);
+    }
+
+    @Test
+    void testExpMinMax() {
+        // Vérifie combinaison exp() + min/max (valeurs strictement positives)
+        NDArray a = NDArray.array(new float[]{-1f, 0f, 1f});
+
+        NDArray r = a.exp();
+
+        assertTrue(r.min() > 0f);
+        assertTrue(r.max() > r.min());
+    }
+
+    
 }
