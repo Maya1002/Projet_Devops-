@@ -22,3 +22,17 @@ jobs:
 
       - name: Build et tests
         run: mvn -f ndarray/pom.xml clean verify
+
+  docker:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+
+      - name: Build image Docker
+        run: docker build -t ndarray .
+
+      - name: Run container Docker
+        run: docker run ndarray
